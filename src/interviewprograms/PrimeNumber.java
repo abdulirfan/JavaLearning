@@ -1,4 +1,4 @@
-package PrimeNumber;
+package interviewprograms;
 
 import java.util.Scanner;
 
