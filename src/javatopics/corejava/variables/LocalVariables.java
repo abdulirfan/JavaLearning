@@ -1,13 +1,13 @@
 package javatopics.corejava.variables;
 
-public class LocalVariable {
+public class LocalVariables {
 
     static {
         int a = 10;
         System.out.println("value of 'a' in static block is " + a);
     }
 
-    LocalVariable(){
+    LocalVariables(){
         int a =10; // it is a local variable and the scope of this variable is within this constructor block.
         System.out.println("value of 'a' in constructor is " + a); // the value of the variable cannot be accessed outside of this block.
     }
@@ -38,8 +38,8 @@ public class LocalVariable {
     }
 
     public static void main(String[] args) {
-        LocalVariable localVariable = new LocalVariable();
-        localVariable.sampleMethod();
+        LocalVariables localVariables = new LocalVariables();
+        localVariables.sampleMethod();
         System.out.println("---------");
         printDefinition();
     }
