@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.filled.School
@@ -70,6 +71,17 @@ private val White = Color(0xFFFFFEFA)
 private val Gold = Color(0xFFE7C982)
 private const val SITE = "https://ali-foundation.org/"
 private const val ABOUT = "https://ali-foundation.org/about/"
+private const val FOUNDATION_ADDRESS = "Bagarpeth, Bantikatta Circle, Hubballi, Karnataka 580024"
+
+private val leadership = listOf(
+    "President" to "Malikjan Kittur",
+    "Vice President" to "Fayaz Kittur",
+    "Secretary" to "Md Zaid",
+    "Joint Secretary" to "Md. Hanif Kittur",
+    "Treasurer" to "Shaik Abdul Irfan",
+    "Director of Digital Administration" to "Sadiq Mulla",
+    "Director" to "Khizar Kalangdi"
+)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -170,7 +182,7 @@ private fun HomeScreen(onExplore: () -> Unit) {
                 .padding(24.dp)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                Text("SERVICE • PROGRESS • DEVELOPMENT", color = Gold, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                Text("UNITY • SERVICE • PROGRESS", color = Gold, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                 Text("Together we move, together we grow.", color = Color.White, fontSize = 28.sp, lineHeight = 35.sp, fontWeight = FontWeight.Bold)
                 Text(
                     "Working together to strengthen education, health, welfare and society.",
@@ -240,23 +252,46 @@ private fun AboutScreen() {
             )
         }
         Text(
-            "Together we move, together we grow. The Foundation's emblem reflects its stated values of unity, service, progress and development, with education, health, welfare and society at its core.",
+            "Together we move, together we grow. The Foundation's emblem reflects unity, service, progress and development, with education, health, welfare and society at its core.",
             color = Ink, fontSize = 16.sp, lineHeight = 25.sp
         )
-        Card(colors = CardDefaults.cardColors(containerColor = White), shape = RoundedCornerShape(20.dp)) {
-            Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("Our values", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                listOf("Unity", "Service", "Progress", "Development", "Education", "Health and welfare").forEach {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(7.dp).clip(CircleShape).background(Gold))
-                        Text(it, color = Muted, fontSize = 14.sp)
+
+        Text("Office location", color = Ink, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+        Card(colors = CardDefaults.cardColors(containerColor = White), shape = RoundedCornerShape(19.dp)) {
+            Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Icon(Icons.Filled.LocationOn, contentDescription = null, tint = Green, modifier = Modifier.size(23.dp))
+                    Text(FOUNDATION_ADDRESS, color = Ink, fontSize = 15.sp, lineHeight = 22.sp)
+                }
+                OutlinedButton(
+                    onClick = { openMap(context) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Icon(Icons.Filled.LocationOn, contentDescription = null, modifier = Modifier.size(17.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text("Open location in Maps")
+                }
+            }
+        }
+
+        Text("Leadership & administration", color = Ink, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+        Card(colors = CardDefaults.cardColors(containerColor = White), shape = RoundedCornerShape(19.dp)) {
+            Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                leadership.forEach { (role, name) ->
+                    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text(role, color = Muted, fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                        Text(name, color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
         }
-        Text("Confirm current program details and contact information through official Foundation channels.", color = Muted, fontSize = 12.sp, lineHeight = 18.sp)
+
+        Text(
+            "For current program details and official enquiries, use the Foundation's official channels.",
+            color = Muted, fontSize = 12.sp, lineHeight = 18.sp
+        )
         Button(onClick = { openSite(context, ABOUT) }, modifier = Modifier.fillMaxWidth()) {
-            Text("Read the full story")
+            Text("Visit official website")
             Spacer(Modifier.width(8.dp))
             Icon(Icons.Filled.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
         }
@@ -310,4 +345,9 @@ private fun Action(title: String, detail: String, label: String, onClick: () -> 
 
 private fun openSite(context: Context, url: String) {
     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+}
+
+private fun openMap(context: Context) {
+    val url = "https://www.google.com/maps/search/?api=1&query=" + Uri.encode(FOUNDATION_ADDRESS)
+    openSite(context, url)
 }
