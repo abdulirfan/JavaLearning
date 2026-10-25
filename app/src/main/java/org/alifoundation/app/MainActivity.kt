@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +42,6 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -55,7 +55,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -137,15 +139,15 @@ private fun Page(content: @Composable () -> Unit) {
 @Composable
 private fun BrandHeader() {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Box(
-            Modifier.size(48.dp).clip(RoundedCornerShape(15.dp)).background(Green),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("A", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.ExtraBold)
-        }
+        Image(
+            painter = painterResource(R.drawable.ali_foundation_logo),
+            contentDescription = "Ali Foundation official logo",
+            modifier = Modifier.width(54.dp).height(60.dp),
+            contentScale = ContentScale.Fit
+        )
         Column {
             Text("ALI FOUNDATION", color = Ink, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 1.sp)
-            Text("Caring is sharing", color = Muted, fontSize = 13.sp)
+            Text("Together we move, together we grow", color = Muted, fontSize = 11.sp)
         }
     }
 }
@@ -154,16 +156,24 @@ private fun BrandHeader() {
 private fun HomeScreen(onExplore: () -> Unit) {
     val context = LocalContext.current
     Page {
+        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Image(
+                painter = painterResource(R.drawable.ali_foundation_logo),
+                contentDescription = "Ali Foundation emblem and motto",
+                modifier = Modifier.width(180.dp).height(200.dp),
+                contentScale = ContentScale.Fit
+            )
+        }
         Box(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(26.dp))
                 .background(Brush.linearGradient(listOf(Color(0xFF173F35), Green, Color(0xFF397B5D))))
                 .padding(24.dp)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                Text("CARING IS SHARING", color = Gold, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-                Text("Education opens doors to a better future.", color = Color.White, fontSize = 29.sp, lineHeight = 36.sp, fontWeight = FontWeight.Bold)
+                Text("SERVICE • PROGRESS • DEVELOPMENT", color = Gold, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                Text("Together we move, together we grow.", color = Color.White, fontSize = 28.sp, lineHeight = 35.sp, fontWeight = FontWeight.Bold)
                 Text(
-                    "Supporting young people through education, opportunity and civic leadership.",
+                    "Working together to strengthen education, health, welfare and society.",
                     color = Color(0xFFE4EEE8), fontSize = 15.sp, lineHeight = 23.sp
                 )
                 Button(
@@ -173,15 +183,15 @@ private fun HomeScreen(onExplore: () -> Unit) {
                 ) { Text("Explore our programs", fontWeight = FontWeight.Bold) }
             }
         }
-        Text("What we work toward", color = Ink, fontSize = 23.sp, fontWeight = FontWeight.Bold)
-        Text("Opportunity should not depend on background.", color = Muted, fontSize = 14.sp)
-        Feature(Icons.Filled.School, "Education access", "Helping young people access learning and build stronger futures.")
-        Feature(Icons.Filled.Groups, "Civic leadership", "Developing leadership skills and community participation.")
-        Feature(Icons.Filled.FavoriteBorder, "Fairness and inclusion", "Promoting respect, equal opportunity and collaboration.")
+        Text("Our focus areas", color = Ink, fontSize = 23.sp, fontWeight = FontWeight.Bold)
+        Text("Community progress begins when people work together.", color = Muted, fontSize = 14.sp)
+        Feature(Icons.Filled.School, "Education", "Supporting learning and opportunities for a stronger future.")
+        Feature(Icons.Filled.FavoriteBorder, "Health and welfare", "Encouraging wellbeing, care and support for the community.")
+        Feature(Icons.Filled.Groups, "Society and development", "Promoting unity, service, leadership and community participation.")
         Card(colors = CardDefaults.cardColors(containerColor = White), shape = RoundedCornerShape(20.dp)) {
             Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text("Be part of the change", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text("Explore the Foundation's work and confirm current opportunities through the official website.", color = Muted, fontSize = 14.sp, lineHeight = 21.sp)
+                Text("Explore the Foundation's current work and opportunities through its official website.", color = Muted, fontSize = 14.sp, lineHeight = 21.sp)
                 OutlinedButton(onClick = { openSite(context, SITE) }, modifier = Modifier.fillMaxWidth()) {
                     Text("Visit official website")
                     Spacer(Modifier.width(8.dp))
@@ -197,10 +207,10 @@ private fun ProgramsScreen() {
     Page {
         Text("Our programs", color = Ink, fontSize = 28.sp, fontWeight = FontWeight.Bold)
         Text("Check the official website for current program details and eligibility.", color = Muted, fontSize = 14.sp, lineHeight = 21.sp)
-        Program(Icons.Filled.School, "01", "Merit scholarships", "Educational opportunities and support for students.")
-        Program(Icons.Filled.Groups, "02", "Civic leadership", "Skills and opportunities for constructive community participation.")
-        Program(Icons.Filled.VolunteerActivism, "03", "Community outreach", "Connecting people and partners to widen access to opportunity.")
-        Program(Icons.Filled.MenuBook, "04", "Financial literacy", "Practical knowledge to support informed financial decisions.")
+        Program(Icons.Filled.School, "01", "Education", "Learning opportunities and support for students.")
+        Program(Icons.Filled.FavoriteBorder, "02", "Health and welfare", "Activities that support wellbeing and community care.")
+        Program(Icons.Filled.Groups, "03", "Community development", "Connecting people and partners to strengthen local communities.")
+        Program(Icons.Filled.VolunteerActivism, "04", "Service and outreach", "Encouraging people to contribute through volunteering and collaboration.")
     }
 }
 
@@ -209,10 +219,10 @@ private fun SupportScreen() {
     val context = LocalContext.current
     Page {
         Text("Get involved", color = Ink, fontSize = 28.sp, fontWeight = FontWeight.Bold)
-        Text("For scholarships, volunteering, partnerships or contributions, use the Foundation's official channels.", color = Muted, fontSize = 15.sp, lineHeight = 22.sp)
-        Action("Education opportunities", "Check the official website for scholarship updates and eligibility.", "Visit official site") { openSite(context, ABOUT) }
-        Action("Partner or volunteer", "Find current information about community outreach and leadership initiatives.", "Learn more") { openSite(context, SITE) }
-        Action("Support the mission", "Confirm official donation methods directly. This app does not process payments.", "Official website") { openSite(context, SITE) }
+        Text("For volunteering, partnerships or contributions, use the Foundation's official channels.", color = Muted, fontSize = 15.sp, lineHeight = 22.sp)
+        Action("Education and programs", "Check the official website for current program information and eligibility.", "Visit official site") { openSite(context, ABOUT) }
+        Action("Partner or volunteer", "Find current information about outreach and community initiatives.", "Learn more") { openSite(context, SITE) }
+        Action("Support the mission", "Confirm official contribution methods directly. This app does not process payments.", "Official website") { openSite(context, SITE) }
     }
 }
 
@@ -221,14 +231,22 @@ private fun AboutScreen() {
     val context = LocalContext.current
     Page {
         Text("About Ali Foundation", color = Ink, fontSize = 28.sp, fontWeight = FontWeight.Bold)
+        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Image(
+                painter = painterResource(R.drawable.ali_foundation_logo),
+                contentDescription = "Official Ali Foundation logo",
+                modifier = Modifier.width(220.dp).height(244.dp),
+                contentScale = ContentScale.Fit
+            )
+        }
         Text(
-            "The education-focused Ali Foundation works to widen access to education, encourage leadership and support community opportunity.",
+            "Together we move, together we grow. The Foundation's emblem reflects its stated values of unity, service, progress and development, with education, health, welfare and society at its core.",
             color = Ink, fontSize = 16.sp, lineHeight = 25.sp
         )
         Card(colors = CardDefaults.cardColors(containerColor = White), shape = RoundedCornerShape(20.dp)) {
             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("Our values", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                listOf("Equal opportunity", "Accessibility and fairness", "Respect across cultures", "Community involvement", "Integrity and collaboration").forEach {
+                listOf("Unity", "Service", "Progress", "Development", "Education", "Health and welfare").forEach {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Box(Modifier.size(7.dp).clip(CircleShape).background(Gold))
                         Text(it, color = Muted, fontSize = 14.sp)
@@ -236,7 +254,7 @@ private fun AboutScreen() {
                 }
             }
         }
-        Text("Confirm this is the intended Ali Foundation before publishing. Program details and contact information should be verified against official sources.", color = Muted, fontSize = 12.sp, lineHeight = 18.sp)
+        Text("Confirm current program details and contact information through official Foundation channels.", color = Muted, fontSize = 12.sp, lineHeight = 18.sp)
         Button(onClick = { openSite(context, ABOUT) }, modifier = Modifier.fillMaxWidth()) {
             Text("Read the full story")
             Spacer(Modifier.width(8.dp))
